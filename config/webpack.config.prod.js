@@ -95,9 +95,13 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
   if (preProcessor) {
     loaders.push({
       loader: require.resolve(preProcessor),
-      options: {
-        sourceMap: shouldUseSourceMap,
-      },
+      options: Object.assign(
+        {}, 
+        cssOptions, 
+        {
+          sourceMap: shouldUseSourceMap
+        }
+      ),
     });
   }
   return loaders;
@@ -399,6 +403,7 @@ module.exports = {
                 sourceMap: shouldUseSourceMap,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
+                includePaths: [paths.globalStyles]
               },
               'sass-loader'
             ),
